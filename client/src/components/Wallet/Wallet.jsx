@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import connectWallet from "../../utils/connectWallet";
 import Web3Context from "../../context/Web3Context";
 import Button from "../Button/Button";
+import { handleAccountChange } from "../../utils/handleAccountChange";
+import { handleChainChange } from "../../utils/handleChainChange";
 
 const Wallet = ({ children }) => {
   const [state, setState] = useState({
@@ -12,6 +14,20 @@ const Wallet = ({ children }) => {
     chianId: null,
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    window.ethereum.on("accountsChanged", () => handleAccountChange(setState));
+    window.ethereum.on("chainChanged", () => handleChainChange(setState));
+
+    return () => {
+      window.ethereum.removeListener("accountsChanged", () =>
+        handleAccountChange(setState)
+      );
+      window.ethereum.removeListener("chainChanged", () =>
+        handleChainChange(setState)
+      );
+    };
+  }, []);
 
   const handleWallet = async () => {
     try {
