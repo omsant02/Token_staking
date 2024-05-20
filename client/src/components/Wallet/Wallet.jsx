@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import connectWallet from "../../utils/connectWallet";
+import Web3Context from "../../context/Web3Context";
+import Button from "../Button/Button";
 
-const Wallet = () => {
+const Wallet = ({ children }) => {
   const [state, setState] = useState({
     provider: null,
     account: null,
@@ -44,7 +46,9 @@ const Wallet = () => {
   };
   return (
     <div>
-      <button onClick={handleWallet}>Connect Wallet</button>
+      <Web3Context.Provider value={state}>{children}</Web3Context.Provider>
+      {isLoading && <p>Loading...</p>}
+      <Button onClick={handleWallet} type="button" label="Connect Wallet" />
     </div>
   );
 };
