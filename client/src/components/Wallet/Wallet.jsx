@@ -39,13 +39,7 @@ const Wallet = ({ children }) => {
         stakeTokenContract,
         chainId,
       } = await connectWallet();
-      console.log(
-        provider,
-        selectedAccount,
-        stakingContract,
-        stakeTokenContract,
-        chainId
-      );
+
       setState({
         provider,
         selectedAccount,

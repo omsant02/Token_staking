@@ -1,4 +1,5 @@
 import "./App.css";
+import DisplayPannel from "./components/DisplayPannel/DisplayPannel";
 import Navigation from "./components/Navigation/Navigation";
 import Wallet from "./components/Wallet/Wallet";
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <Wallet>
         <Navigation />
+        <DisplayPannel />
       </Wallet>
     </>
   );
