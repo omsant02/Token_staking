@@ -1,10 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import Web3Context from "../../context/Web3Context";
+import StakingContext from "../../context/StakingContext";
 import { ethers } from "ethers";
+// import { toast } from "react-hot-toast";
+// import "./DisplayPannel.css";
 
 const StakedAmount = () => {
   const { stakingContract, selectedAccount } = useContext(Web3Context);
-  // const { isReload } = useContext(StakingContext);
+  const { isReload } = useContext(StakingContext);
   const [stakedAmount, setStakedAmount] = useState("0");
 
   useEffect(() => {
@@ -24,7 +27,7 @@ const StakedAmount = () => {
       }
     };
     stakingContract && fetchStakedBalance();
-  }, [stakingContract, selectedAccount]);
+  }, [stakingContract, selectedAccount, isReload]);
 
   return (
     <div className="staked-amount">
@@ -32,5 +35,4 @@ const StakedAmount = () => {
     </div>
   );
 };
-
 export default StakedAmount;
