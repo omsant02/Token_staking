@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import Web3Context from "../../context/Web3Context";
 import { ethers } from "ethers";
+import { toast } from "react-hot-toast";
+import "./DisplayPannel.css";
 
 const RewardRate = () => {
   const { stakingContract, selectedAccount } = useContext(Web3Context);

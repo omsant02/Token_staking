@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import { ethers } from "ethers";
 import Web3Context from "../../context/Web3Context";
 import Button from "../Button/Button";
-
+import { toast } from "react-hot-toast";
 const TokenApproval = () => {
   const { stakeTokenContract, stakingContract } = useContext(Web3Context);
   const approvedTokenRef = useRef();
@@ -26,19 +26,11 @@ const TokenApproval = () => {
         error: "Transaction failed 🤯",
       });
       approvedTokenRef.current.value = "";
-      // const receipt = await transaction.wait();
-      // if (receipt.status === 1) {
-      //     toast.success("Transaction is successful")
-      //     approvedTokenRef.current.value = "";
-      //   } else {
-      //       toast.error("Transaction failed. Please try again.")
-      //   }
     } catch (error) {
       toast.error("Token Approval Failed");
       console.error(error.message);
     }
   };
-
   return (
     <div>
       <form onSubmit={approveToken} className="token-amount-form">
@@ -49,5 +41,4 @@ const TokenApproval = () => {
     </div>
   );
 };
-
 export default TokenApproval;

@@ -1,28 +1,55 @@
-import "./App.css";
-import ClaimReward from "./components/ClaimReward/ClaimReward";
-import DisplayPannel from "./components/DisplayPannel/DisplayPannel";
-import Navigation from "./components/Navigation/Navigation";
-import StakeAmount from "./components/StakeToken/StakeAmount";
-import TokenApproval from "./components/StakeToken/TokenApproval";
+import { useState } from "react";
 import Wallet from "./components/Wallet/Wallet";
+import Navigation from "./components/Navigation/Navigation";
+import DisplayPannel from "./components/DisplayPannel/DisplayPannel";
+import TokenApproval from "./components/StakeToken/TokenApproval";
+import StakeAmount from "./components/StakeToken/StakeAmount";
 import WithdrawStakeAmount from "./components/Withdraw/Withdraw";
 import { StakingProvider } from "./context/StakingContext";
-
+import "./App.css";
 function App() {
+  const [displaySection, setDisplaySection] = useState("stake");
+
+  const handleButtonClick = (section) => {
+    setDisplaySection(section);
+  };
+
   return (
-    <>
+    <div className="main-section">
       <Wallet>
         <Navigation />
         <StakingProvider>
           <DisplayPannel />
-          <StakeAmount />
-          <WithdrawStakeAmount />
+          <div className="main-content">
+            <div className="button-section">
+              <button
+                onClick={() => handleButtonClick("stake")}
+                className={displaySection === "stake" ? "" : "active"}
+              >
+                Stake
+              </button>
+              <button
+                onClick={() => handleButtonClick("withdraw")}
+                className={displaySection === "withdraw" ? "" : "active"}
+              >
+                Withdraw
+              </button>
+            </div>
+            {displaySection === "stake" && (
+              <div className="stake-wrapper">
+                <TokenApproval />
+                <StakeAmount />
+              </div>
+            )}
+            {displaySection === "withdraw" && (
+              <div className="stake-wrapper">
+                <WithdrawStakeAmount />
+              </div>
+            )}
+          </div>
         </StakingProvider>
-        <TokenApproval />
-
-        <ClaimReward />
       </Wallet>
-    </>
+    </div>
   );
 }
 

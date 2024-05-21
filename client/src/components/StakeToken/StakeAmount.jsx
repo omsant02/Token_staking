@@ -3,8 +3,8 @@ import { ethers } from "ethers";
 import Web3Context from "../../context/Web3Context";
 import Button from "../Button/Button";
 import StakingContext from "../../context/StakingContext";
-// import { toast } from "react-hot-toast";
-// import "./StakeToken.css";
+import { toast } from "react-hot-toast";
+import "./StakeToken.css";
 
 const StakeAmount = () => {
   const { stakingContract } = useContext(Web3Context);
@@ -29,12 +29,6 @@ const StakeAmount = () => {
       });
       stakeAmountRef.current.value = "";
       setIsReload(!isReload);
-      // if (receipt.status === 1) {
-      //     setIsReload(!isReload);
-      //     stakeAmountRef.current.value = "";
-      //   } else {
-      //       toast.error("Transaction failed. Please try again.")
-      //   }
     } catch (error) {
       toast.error("Staking Failed");
       console.error(error.message);

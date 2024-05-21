@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import connectWallet from "../../utils/connectWallet";
 import Web3Context from "../../context/Web3Context";
 import Button from "../Button/Button";
 import { handleAccountChange } from "../../utils/handleAccountChange";
 import { handleChainChange } from "../../utils/handleChainChange";
+import { toast } from "react-hot-toast";
+import "./Wallet.css";
 
 const Wallet = ({ children }) => {
   const [state, setState] = useState({
@@ -28,7 +30,6 @@ const Wallet = ({ children }) => {
       );
     };
   }, []);
-
   const handleWallet = async () => {
     try {
       setIsLoading(true);
@@ -39,7 +40,6 @@ const Wallet = ({ children }) => {
         stakeTokenContract,
         chainId,
       } = await connectWallet();
-
       setState({
         provider,
         selectedAccount,
@@ -55,12 +55,11 @@ const Wallet = ({ children }) => {
     }
   };
   return (
-    <div>
+    <div className="Connect-Wallet">
       <Web3Context.Provider value={state}>{children}</Web3Context.Provider>
       {isLoading && <p>Loading...</p>}
       <Button onClick={handleWallet} type="button" label="Connect Wallet" />
     </div>
   );
 };
-
 export default Wallet;
