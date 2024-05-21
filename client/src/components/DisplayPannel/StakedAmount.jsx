@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import Web3Context from "../../context/Web3Context";
-// import StakingContext from "../../context/StakingContext";
 import { ethers } from "ethers";
 
 const StakedAmount = () => {
@@ -18,7 +17,6 @@ const StakedAmount = () => {
           amountStakedWei.toString(),
           18
         );
-        console.log(stakedAmount);
         setStakedAmount(amountStakedEth);
       } catch (error) {
         toast.error("Error fetching staked amount");
